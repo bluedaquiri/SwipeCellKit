@@ -36,7 +36,7 @@ class SwipeController: NSObject {
     
     var animator: SwipeAnimator?
     
-    let elasticScrollRatio: CGFloat = 0.4
+    var elasticScrollRatio: CGFloat = 0.4
     
     var originalCenter: CGFloat = 0
     var scrollRatio: CGFloat = 1.0
@@ -90,6 +90,10 @@ class SwipeController: NSObject {
         case .changed:
             guard let actionsView = swipeable.actionsView, let actionsContainerView = self.actionsContainerView else { return }
             guard swipeable.state.isActive else { return }
+            
+            if let elasticScrollRatio = actionsView.options.elasticScrollRatio {
+                self.elasticScrollRatio = elasticScrollRatio
+            }
             
             if swipeable.state == .animatingToCenter {
                 let swipedCell = scrollView?.swipeables.first(where: { $0.state == .dragging || $0.state == .left || $0.state == .right }) as? UIView

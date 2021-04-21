@@ -184,14 +184,16 @@ extension MailTableViewController: SwipeTableViewCellDelegate {
             }
             configure(action: more, with: .more)
             
-            return [delete, flag, more]
+            return [delete, more]
         }
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
-        options.expansionStyle = orientation == .left ? .selection : .destructive
+        options.expansionStyle = .none
         options.transitionStyle = defaultOptions.transitionStyle
+        options.elasticScrollRatio = orientation == .left ? 0.1 : 0.2
+        options.minimumButtonWidth = 80.0
         
         switch buttonStyle {
         case .backgroundColor:
