@@ -22,7 +22,7 @@ class SwipeActionsView: UIView {
     var expansionAnimator: SwipeAnimator?
     
     var expansionDelegate: SwipeExpanding? {
-        return options.expansionDelegate
+        return options.expansionDelegate ?? (expandableAction?.hasBackgroundColor == false ? ScaleAndAlphaExpansion.default : nil)
     }
 
     weak var safeAreaInsetView: UIView?
